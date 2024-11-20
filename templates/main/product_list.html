@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<h1>Товары</h1>
+
+<div>
+    <h2>Категории</h2>
+    <ul>
+        <li><a href="{% url 'main:product_list' %}">Все категории</a></li>
+        {% for cat in categories %}
+        <li>
+            <a href="{% url 'main:product_list_by_category' cat.slug %}">
+                {{ cat.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    <h2>Список товаров</h2>
+    {% if products %}
+    {% for product in products %}
+    <div>
+        <a href="{% url 'main:product_detail' product.slug %}">{{ product.name }}</a>
+        <p>Цена: {{ product.price }}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>В этой категории пока нет товаров.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+
